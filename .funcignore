@@ -4,6 +4,7 @@
 .vscode
 local.settings.json
 test
+vitest.config.js
 scripts
 getting_started.md
 node_modules/@types/

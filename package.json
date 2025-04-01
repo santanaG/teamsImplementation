@@ -7,7 +7,10 @@
     "dev": "nodemon --watch . --ext js,json --exec 'npm run start'",
     "deploy": "node scripts/deploy.js",
     "new": "npx func new",
-    "init": "npx func init . --javascript"
+    "init": "npx func init . --javascript",
+    "test": "vitest",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +22,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
+    "@vitest/coverage-v8": "^3.1.1",
     "azure-functions-core-tools": "^4.0.7030",
     "eslint": "^9.23.0",
     "eslint-plugin-import": "^2.31.0",
     "globals": "^16.0.0",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "vitest": "^3.1.1"
   }
 }

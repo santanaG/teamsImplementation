@@ -1,1 +1,1 @@
-export default cases => key => (cases[key] ?? cases['base'] ?? (() => ''))()
+export default cases => key => (cases[key] ?? cases['default'] ?? (() => ''))()
