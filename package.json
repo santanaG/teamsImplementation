@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "func start --verbose --script-root src/functions",
+    "start": "func start --verbose",
     "dev": "nodemon --watch . --ext js,json --exec 'npm run start'",
-    "new": "func new",
-    "init": "func init . --javascript"
+    "deploy": "node scripts/deploy.js",
+    "new": "npx func new",
+    "init": "npx func init . --javascript"
   },
   "keywords": [],
   "author": "",
@@ -14,9 +15,7 @@
   "description": "",
   "dependencies": {
     "axios": "^1.8.4",
-    "body-parser": "^1.20.3",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "dotenv": "^16.4.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",

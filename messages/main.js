@@ -10,11 +10,11 @@ import teams from './requests/teams.js'
 export const main = (context, request) => match({
 
   POST: () => Promise.all(auth())
-    .catch(formatError(context))
-    .then(([graphToken, botToken]) => graph(request.body.from.aadObjectId,graphToken)
+    .catch(formatError)
+    .then(([graphToken, botToken]) => graph(request.body.from.aadObjectId, graphToken)
       .then(contextVars => [buildPayload(request.body.text, contextVars), botToken]))
     .then(([payload, botToken]) => voiceflow(request.body.from.id, payload)
-      .then(teams(request, botToken))),
+      .then(teams(request.body, botToken))),
 
   base: () => Promise.reject({ status: 405, body: 'Only POST allowed' })
 
@@ -23,4 +23,4 @@ export const main = (context, request) => match({
     status: 200,
     body: 'Message sent to Teams successfully'
   }))
-  .catch(error => Object.assign(context.res, error) && context.log(error))
+  .catch(error => Object.assign(context.res, error) && context.log.error(error))

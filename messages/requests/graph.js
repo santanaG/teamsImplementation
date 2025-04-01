@@ -1,13 +1,14 @@
-import axios from "axios"
+import axios from 'axios'
+import formatAxiosError from '../utilities/formatAxiosError.js'
 
-export default (aadObjectId, token) => axios.get(
+export default (aadObjectId, Authorization) => axios.get(
   `https://graph.microsoft.com/v1.0/users/${aadObjectId}`,
-  { headers: { Authorization: `Bearer ${token}` } }
+  { headers: { Authorization } }
 )
   .catch(error => Promise.reject(formatAxiosError(error, 'Graph API request')))
-  .then(res => ({
-    fullName: res.data.displayName,
-    email: res.data.mail || res.data.userPrincipalName,
-    title: res.data.jobTitle,
-    department: res.data.department
+  .then(({ data }) => ({
+    fullName: data.displayName,
+    email: data.mail || data.userPrincipalName,
+    title: data.jobTitle,
+    department: data.department
   }))

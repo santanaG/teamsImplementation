@@ -1,8 +1,8 @@
-export default (request, text) => ({
+export default ({ recipient, conversation, from, textFormat }, text) => ({
   type: 'message',
-  from: request.body.recipient,
-  conversation: { id: request.body.conversation.id },
-  recipient: request.body.from,
+  from: recipient,
+  conversation: { id: conversation.id },
+  recipient: from,
   text,
-  textFormat: request.body.textFormat || 'plain'
+  textFormat: textFormat || 'plain'
 })
