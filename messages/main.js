@@ -9,14 +9,19 @@ import teams from './requests/teams.js'
 
 export const main = (context, request) => match({
 
-  POST: () => Promise.all(auth())
-    .catch(formatError)
-    .then(([graphToken, botToken]) => graph(request.body.from.aadObjectId, graphToken)
-      .then(contextVars => [buildPayload(request.body.text, contextVars), botToken]))
-    .then(([payload, botToken]) => voiceflow(request.body.from.id, payload)
-      .then(teams(request.body, botToken))),
+  POST: () => match({
+    message: () => Promise.all(auth())
+      .catch(formatError)
+      .then(([graphToken, botToken]) => graph(request.body.from.aadObjectId, graphToken)
+        .then(contextVars => [buildPayload(request.body.text, contextVars), botToken]))
+      .then(([payload, botToken]) => voiceflow(request.body.from.id, payload)
+        .then(teams(request.body, botToken))),
+    voiceflow: () => Promise.reject({ status: 501, body: 'Not Implemented' }),
+    freshservice: () => Promise.reject({ status: 501, body: 'Not Implemented' }),
+    default: () => Promise.reject({ status: 400, body: `Unknown case: ${request.body.type}` })
+  })(request.body.type),
 
-  base: () => Promise.reject({ status: 405, body: 'Only POST allowed' })
+  default: () => Promise.reject({ status: 405, body: 'Only POST allowed' })
 
 })(request.method)
   .then(() => Object.assign(context.res, {
