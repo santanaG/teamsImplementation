@@ -5,7 +5,7 @@ import formatBlock from '../utilities/formatBlock.js'
 export default (userId, payload) => axios.post(
   `https://general-runtime.voiceflow.com/state/user/${userId}/interact`,
   payload,
-  { headers: { Authorization: process.env.VOICEFLOW_API_KEY } }
+  { headers: { Authorization: process.env.VF_API_KEY } }
 )
   .catch(error => Promise.reject(formatAxiosError(error, 'Voiceflow request')))
   .then(response => response.data

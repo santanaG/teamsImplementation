@@ -5,9 +5,10 @@ import voiceflow from './requests/voiceflow.js'
 import buildPayload from './utilities/buildPayload.js'
 import teams from './requests/teams.js'
 
-export default request => Promise.all(auth())
+export default body => Promise.all(auth())
   .catch(formatError)
-  .then(([graphToken, botToken]) => graph(request.body.from.aadObjectId, graphToken)
-    .then(contextVars => [buildPayload(request.body.text, contextVars), botToken]))
-  .then(([payload, botToken]) => voiceflow(request.body.from.id, payload)
-    .then(teams(request.body, botToken)))
+  .then(([graphToken, botToken]) => graph(body.from.aadObjectId, graphToken)
+    .then(contextVars => [buildPayload(body.text, contextVars), botToken]))
+  .then(([payload, botToken]) => voiceflow(body.from.id, payload)
+    .then(teams(body, botToken)))
+  .then(() => ({ status: 200, body: 'Message sent to Teams successfully' }))
