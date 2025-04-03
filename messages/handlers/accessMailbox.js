@@ -1,10 +1,9 @@
 import axios from 'axios'
 
 export default body => axios.post(
-  `https://${process.env.FS_DOMAIN}.freshservice.com/api/v2/tickets`,
+  'https://domain.freshservice.com/api/v2/service_catalog/items/70/place_request',
   {
-    subject: `${body.fullName} opened a ticket via Teams Chat`,
-    description: body.slots.summary,
+    description: body.slots.justification,
     email: body.email,
     priority: 1,
     status: 2,
