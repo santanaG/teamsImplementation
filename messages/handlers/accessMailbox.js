@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 export default body => axios.post(
-  'https://domain.freshservice.com/api/v2/service_catalog/items/70/place_request',
+  `https://${process.env.FS_DOMAIN}.com/api/v2/service_catalog/items/70/place_request`,
   {
-    description: body.slots.justification,
+    description: '',
     email: body.email,
     priority: 1,
     status: 2,
