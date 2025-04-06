@@ -1,4 +1,1 @@
-export default error => Promise.reject({
-    status: error?.status || 500,
-    body: error?.body || error?.message || String(error) || 'Unhandled error'
-  })
+export default error => Promise.reject(Object.assign(error, { status: error?.status || 500 }))

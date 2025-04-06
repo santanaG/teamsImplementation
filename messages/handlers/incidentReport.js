@@ -9,8 +9,8 @@ export default body => axios.post(
     priority: 3,
     status: 2,
     group_id: 23000293321,  //IT Service
-    channel: 'chat',
-    type: 'incident'
+    source: 4,
+    type: 'Incident'
   },
   {
     headers: {

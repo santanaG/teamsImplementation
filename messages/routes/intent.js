@@ -9,13 +9,14 @@ import provisionApp from '../handlers/provisionApp.js'
 import resetPassword from '../handlers/resetPassword.js'
 
 export default body => match({
-  accessMailbox: accessMailbox(body),
-  forwardRequest: forwardRequest(body),
-  incidentReport: incidentReport(body),
-  manageDistro: manageDistro(body),
-  openTicket: openTicket(body),
-  provisionApp: provisionApp(body),
-  provisionGroup: provisionGroup(body),
-  resetPassword: resetPassword(body),
-  default: Promise.reject({ status: 400, body: `Unknown intent: ${body.intent}` })
-})(body.intent, 'Intent')
+  accessMailbox,
+  forwardRequest,
+  incidentReport,
+  manageDistro,
+  openTicket,
+  provisionApp,
+  provisionGroup,
+  resetPassword,
+  default: () => Promise.reject(Object.assign(new Error(`Unknown intent: ${body.intent}`), { status: 400 }))
+})(body.intent, 'Intent', body)
+.then(() => ({ status: 200, body: 'Ticket opened successfully' }))

@@ -1,9 +1,9 @@
-import auth from './requests/auth.js'
-import formatError from './utilities/formatError.js'
-import graph from './requests/graph.js'
-import voiceflow from './requests/voiceflow.js'
-import buildPayload from './utilities/buildPayload.js'
-import teams from './requests/teams.js'
+import auth from '../requests/auth.js'
+import formatError from '../utilities/formatError.js'
+import graph from '../requests/graph.js'
+import voiceflow from '../requests/voiceflow.js'
+import buildPayload from '../utilities/buildPayload.js'
+import teams from '../requests/teams.js'
 
 export default body => Promise.all(auth())
   .catch(formatError)
